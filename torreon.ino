@@ -5,7 +5,11 @@
 
 const int LEDPin = 13;        // pin para el LED
 const int PIRPin = 2;  // pin de entrada (for PIR sensor)
-const int boton = 4;
+const int boton = 4; //boton de avanzar pantallas
+const int boton2 = 9; // boton armado alarma
+const int rele1 = 7;
+const int rele2 = 8;
+
 
 int pirState = LOW;           // de inicio no hay movimiento
 int val = 0;                  // estado del pin
@@ -14,6 +18,9 @@ int menucursor = 0;
 int botoncursor = 0;
 int horaalarma;
 int minutoalarma;
+bool armado;
+int botonalarma = 0;
+int variable_alarma = 0;
 
 RTC_DS1307 reloj;
 
@@ -52,11 +59,13 @@ void setup()
   pinMode(LEDPin, OUTPUT); 
   pinMode(PIRPin, INPUT);
   pinMode(boton, INPUT);
+  pinMode(rele1, OUTPUT);
   display.clearDisplay();
   Serial.begin(9600);
   display.setTextColor(WHITE);
   display.setCursor(0, 0);
-  display.println("Iniciando PIR ...................................");
+  display.println("Iniciando PIR ...");
+  armado = false;
   display.display();
   delay(5000);
   display.clearDisplay();
@@ -65,6 +74,7 @@ void setup()
 void loop()
 {
   botoncursor = digitalRead(boton);
+  
   if (botoncursor == HIGH){
     delay(125);
     avanzar++;
@@ -72,9 +82,10 @@ void loop()
     avanzar = 0;
     }
   }
-  val = digitalRead(PIRPin);
+  if (armado == true){
+    val = digitalRead(PIRPin);
   if (val == HIGH)   //si está activado
-  { 
+  {
     int horas, minutos;
     DateTime now = reloj.now();
     horas = now.hour();
@@ -98,6 +109,8 @@ void loop()
       pirState = LOW;
     }
   }
+ }
+  
   menu();
 }
 
@@ -112,14 +125,36 @@ void menu(){
   switch (avanzar){
     
     case 0: // pantalla principal
+    botonalarma = digitalRead(boton2);
+  
+  if (botonalarma == HIGH){
+  variable_alarma = !variable_alarma;
+  delay(125);
+  }
+  
+  if (variable_alarma == HIGH){
+    delay(125);
+    armado = true;
+    //avisoarmaralarma();
+  }
+  else {
+    delay(125);
+    armado = false;
+  }
     display.clearDisplay();
     display.setTextColor(WHITE);
     display.setTextSize(2);
     display.setCursor(39, 5);
     display.println(String(horas) + ":" + String(minutos));
     display.setTextSize(0.5);
+    if (armado == true){
+    display.setCursor(17, 23);
+    display.println("Sistema armado");
+    }
+    else {
     display.setCursor(17, 23);
     display.println("Sistema desarmado");
+    }
     display.display();
     return;
 
@@ -203,3 +238,14 @@ void aviso(){
   return;
 }
 
+void avisoarmaralarma(){
+  display.clearDisplay();
+  display.setTextSize(1);
+  display.setCursor(0, 0);
+  display.println("Alarma armada en:");
+  display.setCursor(50, 7);
+  display.println("5s");
+  display.display();
+  delay(5000);
+  return;
+}
