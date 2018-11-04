@@ -1,0 +1,10 @@
+CHANGELOG
+
+04/11/2018:
+
+- Arreglado error que mostraba las horas y los minutos con un solo dígito cuando respectivamente eran menor de diez tanto en pantalla principal como en el overlay. 
+- Cambiado el orden de las pantallas. La tercera ahora es "Corriente" en vez de "Alimentación".
+- Cambiado texto en pantalla de aviso alarma activada "Aviso: OK!" por "Avisado Blynk".
+- Añadida pantalla de arranque.
+- Añadido nuevo menú "Atmosfera" donde aparece la temperatura y la humedad. Un icono nos avisa si hace calor o frio, cactus o copo de nieve respectivamente.
+- Añadida función en "Atmosfera" para alternar entre temperatura en grados Celcius o Fahrenheit.
