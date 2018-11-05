@@ -1,6 +1,6 @@
 CHANGELOG
 
-04/11/2018:
+04/11/2018: (0.1)
 
 - Arreglado error que mostraba las horas y los minutos con un solo dígito cuando respectivamente eran menor de diez tanto en pantalla principal como en el overlay. 
 - Cambiado el orden de las pantallas. La tercera ahora es "Corriente" en vez de "Alimentación".
@@ -8,3 +8,11 @@ CHANGELOG
 - Añadida pantalla de arranque.
 - Añadido nuevo menú "Atmosfera" donde aparece la temperatura y la humedad. Un icono nos avisa si hace calor o frio, cactus o copo de nieve respectivamente.
 - Añadida función en "Atmosfera" para alternar entre temperatura en grados Celcius o Fahrenheit.
+
+05/11/2018: (0.2)
+
+- (EN PRUEBAS) Añadida función para apagar la pantalla transcurridos ciertos segundos para evitar quemaduras en la misma y ahorrar batería.
+- Cambiado título pantalla "Atmosfera" por "Clima".
+- Eliminado temporalmente el cambio de icono en "Clima" dependiendo de la sensación térmica. Reemplazado por uno fijo.
+- Añadido soporte para LED de estado encendido (Vin) y LED rojo parpadeante para indicar que la alarma está armada.
+- Corregido fallo al mostrar la hora con un solo dígito si la hora y minuto de salto eran menores de diez en "Alarma".
